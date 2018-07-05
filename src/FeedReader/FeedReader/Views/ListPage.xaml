@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 x:Class="FeedReader.Views.ListPage"
+			 Title="{Binding RssObject.feed.title}">
+	<ContentPage.Content>
+		<StackLayout>
+
+			<Label Text="{Binding RssObject.items.Length, StringFormat='{0} artigos não lidos'}"
+				   HeightRequest="20"
+				   BackgroundColor="#EEEEEE"
+				   TextColor="Black"
+				   HorizontalOptions="Fill"
+				   HorizontalTextAlignment="Center"
+				   FontSize="Small"
+				   VerticalTextAlignment="Center" />
+
+			<ListView x:Name="listView"
+					  IsPullToRefreshEnabled="True"
+					  HasUnevenRows="True"
+					  Margin="5, 0, 5, 0"
+					  ItemsSource="{Binding RssObject.items}"
+					  IsRefreshing="{Binding IsRefreshing}"
+					  ItemTapped="listView_ItemTapped">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<StackLayout Orientation="Horizontal"
+										 HorizontalOptions="StartAndExpand">
+								<Image WidthRequest="70"
+									   Source="{Binding thumbnail} "/>
+								<StackLayout Orientation="Vertical"
+											 HorizontalOptions="StartAndExpand">
+									<Label Text="{Binding title}"
+										   TextColor="Black"
+										   FontSize="Medium" />
+									<Label Text="{Binding description}" />
+									<Label Text="{Binding pubDate}"
+										   TextColor="Accent" />
+								</StackLayout>
+							</StackLayout>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+		</StackLayout>
+	</ContentPage.Content>
+</ContentPage>
